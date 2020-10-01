@@ -1,0 +1,131 @@
+$primary-color: #333;
+$overlay-color: rgba(0, 0, 0, 0.85);
+$progress-color: #fe8daa;
+$light-color: #dfdbdf;
+$transition-time: 0.5s;
+$menu-speed: 0.75s;
+$disc: 20px;
+
+@function set-text-color() {
+  @if (lightness($color) > 50) {
+    @return #222;
+  } @else {
+    @return set-text-color($color);
+  }
+}
+
+@mixin set-background($color) {
+  background-color: $color;
+  color: #fff;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin position-0-0 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@mixin square($x) {
+  width: $x;
+  height: $x;
+}
+
+.container {
+  max-width: 960px;
+  margin: auto;
+  overflow: hidden;
+  padding: 0 2rem;
+  margin: 6rem auto 3rem auto;
+}
+
+.btn {
+  display: inline-block;
+  border: none;
+  background-color: #fff;
+  color: $primary-color;
+  padding: 0.75rem 1.5rem;
+  margin-top: 1rem;
+  text-decoration: none;
+  transform: opacity 1s ease-in;
+  cursor: pointer;
+  outline: none;
+  margin-right: 0.5rem;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.hide {
+  display: none !important;
+}
+// GRID
+.grid {
+  display: grid;
+  grid-gap: 1.5rem;
+}
+
+.grid-2 {
+  grid-template-columns: auto auto;
+}
+
+.flex-center {
+  @include flex-center();
+}
+
+// Margins and Paddings
+$spaces: (1, 2, 3, 4);
+
+@each $space in $spaces {
+  .m-#{$space} {
+    margin: #{$space}rem;
+  }
+
+  .my-#{$space} {
+    margin: #{$space}rem 0;
+  }
+
+  .mx-#{$space} {
+    margin: 0 #{$space}rem;
+  }
+
+  .p-#{$space} {
+    padding: #{$space}rem;
+  }
+
+  .py-#{$space} {
+    padding: #{$space}rem 0;
+  }
+
+  .px-#{$space} {
+    padding: 0 #{$space}rem;
+  }
+}
+
+@media (min-width: 600px) {
+  .hide-on-s1 {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .hide-on-s2 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .grid.grid-fullwidth-mobile {
+    display: block;
+  }
+}
+
+.bg-light {
+  background-color: #f0f0f0;
+}

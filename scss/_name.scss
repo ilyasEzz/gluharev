@@ -1,0 +1,55 @@
+// we got those numbers using path.getTotalLength() in Javascript
+$letters: (
+  1: 555px,
+  2: 342px,
+  3: 497px,
+  4: 554px,
+  5: 477px,
+  6: 540px,
+  7: 550px,
+  8: 430px
+);
+
+#name-text {
+  display: none;
+  font-size: 48px;
+  letter-spacing: 2px;
+}
+
+#name {
+  animation: fill 0.5s ease forwards 2s;
+}
+
+@each $i, $totalLength in $letters {
+  #name path:nth-child(#{$i}) {
+    stroke-dasharray: $totalLength;
+    stroke-dashoffset: $totalLength;
+    animation: animate-line 2s ease forwards;
+  }
+}
+
+@keyframes animate-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fill {
+  from {
+    fill: transparent;
+  }
+  to {
+    fill: white;
+    transform: scale(1.1);
+  }
+}
+
+@media (max-width: 992px) {
+  #name {
+    display: none;
+  }
+
+  #name-text {
+    display: flex;
+  }
+}

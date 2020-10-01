@@ -1,0 +1,131 @@
+.menu-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  color: #fff;
+
+  .toggler {
+    @include position-0-0;
+    z-index: 2;
+    cursor: pointer;
+    @include square(50px);
+    opacity: 0;
+  }
+
+  .hamberger {
+    @include position-0-0;
+    @include square(60px);
+    z-index: 1;
+    padding: 1rem;
+    color: inherit;
+    @include flex-center;
+    background-color: #000;
+
+    /* Hamberger line  */
+    & > div {
+      position: relative;
+      width: 100%;
+      height: 2px;
+      background-color: #fff;
+      @include flex-center;
+      color: inherit;
+
+      transition: all $transition-time ease;
+    }
+
+    & > div:before,
+    & > div:after {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      top: -10px;
+      width: 100%;
+      height: 2px;
+      color: inherit;
+
+      background-color: inherit;
+    }
+
+    & > div:after {
+      top: 10px;
+    }
+  }
+}
+
+/* Toogle animate */
+.menu-wrap .toggler:checked {
+  & + .hamberger > div {
+    transform: rotate(135deg);
+
+    /* Turn Lines into X */
+    &::before,
+    &::after {
+      top: 0;
+      transform: rotate(90deg);
+    }
+  }
+
+  /* Rotate on Hover When Checked */
+  &:hover + .hamberger > div {
+    transform: rotate(225deg);
+  }
+
+  & ~ .menu {
+    visibility: visible;
+  }
+
+  & ~ .menu > div {
+    transform: scale(1);
+    transition-duration: $transition-time;
+
+    & > div {
+      opacity: 1;
+      transition: opacity $transition-time ease;
+    }
+  }
+}
+
+/* On Click  */
+.menu-wrap .menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  overflow: hidden;
+  @include flex-center;
+
+  & > div {
+    background-color: $overlay-color;
+    border-radius: 50%;
+    width: 200vw;
+    height: 200vh;
+    @include flex-center;
+    flex: none;
+    transform: scale(0);
+    transition: all $transition-time ease;
+
+    & > div {
+      text-align: center;
+      max-width: 90vw;
+      max-height: 100vh;
+      opacity: 0;
+      transition: opacity $transition-time ease;
+    }
+  }
+
+  .mobile-nav > li {
+    color: #fff;
+    list-style: none;
+    font-size: 1.5rem;
+    padding: 1rem;
+
+    & > a {
+      color: inherit;
+      text-decoration: none;
+      transition: color $transition-time ease;
+    }
+  }
+}

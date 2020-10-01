@@ -1,0 +1,197 @@
+#music-container {
+  background-color: #000;
+  display: flex;
+  position: fixed;
+  width: 100%;
+  // to hide music player
+  // bottom: -100px
+  bottom: 0px;
+  z-index: 10;
+  transition: bottom $transition-time linear;
+
+  h4 {
+    @include flex-center;
+    min-width: 100px;
+    color: #fff;
+  }
+}
+
+.img-container {
+  position: relative;
+  @include square(70px);
+  z-index: 10;
+
+  img {
+    object-fit: cover;
+    @include square(inherit);
+  }
+}
+
+@keyframes rotate-disc {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.navigation {
+  @include flex-center;
+  padding-left: 20px;
+  background-color: transparent;
+  color: $light-color;
+  z-index: 1;
+}
+
+.action-btn {
+  background-color: inherit;
+  border: 0;
+  color: $light-color;
+  cursor: pointer;
+  padding: 10px;
+  margin: 0 10px;
+
+  .material-icons {
+    font-size: 25px;
+  }
+}
+
+.action-btn.action-btn-big .material-icons {
+  color: #fff;
+  font-size: 35px;
+}
+
+.action-btn:focus {
+  outline: 0;
+}
+
+.music-info {
+  border-radius: 15px 15px 0 0;
+  width: calc(100% - 40px);
+  @include flex-center;
+}
+
+.progress-container {
+  background-color: $light-color;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px;
+  height: 10px;
+  width: 100%;
+}
+
+.progress {
+  background-color: $progress-color;
+  height: 100%;
+  border-radius: 5px;
+  width: 40%;
+  transition: width 0.1s linear;
+}
+
+@media (max-width: 767px) {
+  #music-container {
+    &.hide-player {
+      bottom: -70px;
+    }
+
+    #player-up {
+      position: absolute;
+      width: 10px;
+      color: white;
+      bottom: 70px;
+      right: 10px;
+      z-index: 100;
+      background-color: transparent;
+      opacity: 0;
+      transition: opacity $transition-time ease-in-out;
+
+      .material-icons {
+        background-color: $light-color;
+        color: $primary-color;
+      }
+    }
+
+    #player-down {
+      position: absolute;
+      width: 10px;
+      padding: 0;
+      margin-top: 5px;
+      color: white;
+      right: 10px;
+      z-index: 100;
+
+      .material-icons {
+        background-color: darken($primary-color, 10%);
+      }
+    }
+  }
+
+  .progress-container {
+    margin: 0;
+    border-radius: 0;
+    height: 10px;
+
+    .progress {
+      border-radius: inherit;
+    }
+  }
+
+  .music-info {
+    position: absolute;
+    left: 0;
+    width: 100vw;
+    z-index: 100;
+    transform: translateY(-100%);
+  }
+}
+
+@media (max-width: 426px) {
+  .navigation {
+    padding-left: 0;
+
+    .action-btn {
+      margin: 0;
+    }
+  }
+}
+
+@media (min-width: 1279px) {
+  .img-container {
+    position: relative;
+    width: 110px;
+    z-index: 10;
+
+    &::after {
+      content: '';
+      background-color: $light-color;
+      border-radius: 50%;
+      border: #222 solid 3px;
+      position: absolute;
+      bottom: calc(100% - #{$disc / 2});
+      left: calc(50% + #{$disc / 2});
+      @include square($disc);
+      transform: translate(-50%, 50%);
+    }
+
+    img {
+      border-radius: 50%;
+      object-fit: cover;
+      height: 110px;
+      width: inherit;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      animation: rotate-disc 3s linear infinite;
+      animation-play-state: paused;
+    }
+  }
+
+  #music-container {
+    padding: 0 30px 5px 30px;
+
+    &.play .img-container img {
+      animation-play-state: running;
+    }
+  }
+}
